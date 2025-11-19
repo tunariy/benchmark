@@ -6,7 +6,7 @@
 using namespace benchtools;
 
 int main() {
-    Logger logger("log.txt", PUSHBACK);
+    Logger logger = { "log.txt", OVERWRITE };
     logger.log("Starting something...");
     {
         Timer timer1;

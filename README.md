@@ -9,11 +9,15 @@
 - [Usage](#how-to-use)
 - [Notes](#notes)
 
+---
+
 ## Features
 
 - Timer class for benchmarking a scope or a block of code
 
 - A logger class for logging to files
+
+---
 
 ## How to Setup
 
@@ -50,6 +54,8 @@ target_link_libraries(benchmarktools PRIVATE)
 ```bash
 g++ main.cpp benchtools/src/filelog.cpp benchtools/src/timer.cpp -I benchtools/headers
 ```
+
+---
 
 ## How to Use
 
@@ -89,8 +95,6 @@ int main() {
 
 - Output
 
-Console
-
 ```bash
 File open mode: 1
  LOG 
@@ -106,6 +110,8 @@ Duration(ns): 77882300ns
 0
 ```
 
+---
+
 log.txt
 
 ```txt
@@ -114,8 +120,9 @@ Starting something...
 Ran successfully!
 0
 Log end at: 2025-08-18 19:28:17
-
 ```
+
+### Explicit Destructor Usage Example
 
 ```cpp
 #define EXPLICIT_TIMER // Timer destructor is now explicit
@@ -148,8 +155,6 @@ int main() {
 
 - Output
 
-Console
-
 ```bash
 File open mode: 1
  LOG 
@@ -165,6 +170,8 @@ Duration(ns): 77882300ns
 0
 ```
 
+---
+
 log.txt
 
 ```txt
@@ -173,8 +180,9 @@ Starting something...
 Ran successfully!
 0
 Log end at: 2025-08-18 19:28:17
-
 ```
+
+---
 
 ### Notes
 
@@ -186,7 +194,7 @@ static std::chrono::duration<double>
 
 - and ```.count()``` returns a ```double```
 
-- This variable is not thread-safe: if multiple ```Timer```s are active across translation units, the value may be overwritten. Use only in single-threaded contexts or add your own synchronization.
+- **This variable is not thread-safe: if multiple ```Timer```s are active across translation units, the value may be overwritten. Use only in single-threaded contexts or add your own synchronization.**
 
 - Logger flushes the buffer after every log and clear calls
 
