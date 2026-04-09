@@ -1,6 +1,3 @@
-#include <timer.h>
-#include <filelog.h>
+#include "timer.h"
 
-namespace benchtools{
-
-}
+namespace benchtools {};

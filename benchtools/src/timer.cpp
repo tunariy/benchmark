@@ -1,126 +1,95 @@
+#include <ctime>
 #include <timer.h>
 
 namespace benchtools {
-    std::chrono::steady_clock::duration LAST_DURATION{};
 
-    Timer::Timer() {
-        mStart = std::chrono::steady_clock::now();
-        mUnit = timeunit::nanosecond;
-    }
-
-    Timer::Timer(const timeunit& unit = timeunit::nanosecond) {
-        mStart = std::chrono::steady_clock::now();
-        mUnit = unit;
-    };
-#if !EXPLICIT_TIMER
-    Timer::~Timer() {
-        std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        mDuration = end - mStart;
-        LAST_DURATION = end - mStart;
-#if !EXPLICIT_LOG
-        switch (mUnit) {
-        case timeunit::nanosecond:
-            std::clog << "Duration(ns): " << std::chrono::duration_cast<std::chrono::nanoseconds>(mDuration).count() << "ns" << std::endl;
-            break;
-        case timeunit::microsecond:
-            std::clog << "Duration(μs): " << std::chrono::duration_cast<std::chrono::microseconds>(mDuration).count() << "μs" << std::endl;
-            break;
-        case timeunit::milisecond:
-            std::clog << "Duration(ms): " << std::chrono::duration_cast<std::chrono::milliseconds>(mDuration).count() << "ms" << std::endl;
-            break;
-        case timeunit::second:
-            std::clog << "Duration(seconds): " << std::chrono::duration_cast<std::chrono::seconds>(mDuration).count() << "s" << std::endl;
-            break;
-        case timeunit::minute:
-            std::clog << "Duration(minutes): " << std::chrono::duration_cast<std::chrono::seconds>(mDuration).count() << "m" << std::endl;
-            break;
-        case timeunit::hour:
-            std::clog << "Duration(hours): " << std::chrono::duration_cast<std::chrono::hours>(mDuration).count() << "h" << std::endl;
-            break;
-        case timeunit::Default:
-            std::clog << "Duration(ns): " << std::chrono::duration_cast<std::chrono::nanoseconds>(mDuration).count() << "ns" << std::endl;
-            std::clog << "Duration(ms): " << std::chrono::duration_cast<std::chrono::milliseconds>(mDuration).count() << "ms" << std::endl;
-            break;
-        default:
-            break;
-        }
-#endif
-    }
-#else
-    explicit Timer::~Timer() {
-        std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        mDuration = end - mStart;
-        LAST_DURATION = end - mStart;
-        switch (mUnit) {
-        case timeunit::nanosecond:
-            std::clog << "Duration(ns): " << std::chrono::duration_cast<std::chrono::nanoseconds>(mDuration).count() << "ns" << std::endl;
-            break;
-        case timeunit::microsecond:
-            std::clog << "Duration(μs): " << std::chrono::duration_cast<std::chrono::microseconds>(mDuration).count() << "μs" << std::endl;
-            break;
-        case timeunit::milisecond:
-            std::clog << "Duration(ms): " << std::chrono::duration_cast<std::chrono::milliseconds>(mDuration).count() << "ms" << std::endl;
-            break;
-        case timeunit::second:
-            std::clog << "Duration(seconds): " << std::chrono::duration_cast<std::chrono::seconds>(mDuration).count() << "s" << std::endl;
-            break;
-        case timeunit::minute:
-            std::clog << "Duration(minutes): " << std::chrono::duration_cast<std::chrono::seconds>(mDuration).count() << "m" << std::endl;
-            break;
-        case timeunit::hour:
-            std::clog << "Duration(hours): " << std::chrono::duration_cast<std::chrono::hours>(mDuration).count() << "h" << std::endl;
-            break;
-        case timeunit::Default:
-            std::clog << "Duration(ns): " << std::chrono::duration_cast<std::chrono::nanoseconds>(mDuration).count() << "ns" << std::endl;
-            std::clog << "Duration(ms): " << std::chrono::duration_cast<std::chrono::milliseconds>(mDuration).count() << "ms" << std::endl;
-            break;
-        default:
-            break;
-        }
-    }
-#endif
-    void Timer::SetUnit(const timeunit& unit) {
-        mUnit = unit;
-    };
-
-    std::chrono::duration<double> durationCast(const std::chrono::duration<double>& otherDuration, timeunit unit) {
-        if (unit == nanosecond) {
-            return std::chrono::duration_cast<std::chrono::nanoseconds>(otherDuration);
-        }
-        else if (unit == nanosecond) {
-            return std::chrono::duration_cast<std::chrono::microseconds>(otherDuration);
-        }
-        else if (unit == nanosecond) {
-            return std::chrono::duration_cast<std::chrono::milliseconds>(otherDuration);
-        }
-        else if (unit == nanosecond) {
-            return std::chrono::duration_cast<std::chrono::seconds>(otherDuration);
-        }
-        else if (unit == nanosecond) {
-            return std::chrono::duration_cast<std::chrono::minutes>(otherDuration);
-        }
-        else if (unit == nanosecond) {
-            return std::chrono::duration_cast<std::chrono::hours>(otherDuration);
-        }
-        else {
-            return std::chrono::duration_cast<std::chrono::milliseconds>(otherDuration);
-        }
-    };
+std::chrono::duration<double>
+durationCast(std::chrono::duration<double> &duration, time_unit durationType) {
+  switch (durationType) {
+  case time_unit::months: {
+    return std::chrono::duration_cast<std::chrono::months>(duration);
+  } break;
+  case time_unit::years: {
+    return std::chrono::duration_cast<std::chrono::years>(duration);
+  } break;
+  case time_unit::weeks: {
+    return std::chrono::duration_cast<std::chrono::weeks>(duration);
+  } break;
+  case time_unit::days: {
+    return std::chrono::duration_cast<std::chrono::days>(duration);
+  } break;
+  case time_unit::hours: {
+    return std::chrono::duration_cast<std::chrono::hours>(duration);
+  } break;
+  case time_unit::minutes: {
+    return std::chrono::duration_cast<std::chrono::minutes>(duration);
+  } break;
+  case time_unit::seconds: {
+    return std::chrono::duration_cast<std::chrono::seconds>(duration);
+  } break;
+  case time_unit::miliseconds: {
+    return std::chrono::duration_cast<std::chrono::milliseconds>(duration);
+  } break;
+  case time_unit::microseconds: {
+    return std::chrono::duration_cast<std::chrono::microseconds>(duration);
+  } break;
+  case time_unit::nanoseconds:
+    return std::chrono::duration_cast<std::chrono::nanoseconds>(duration);
+    break;
+  default:
+    return std::chrono::duration_cast<std::chrono::nanoseconds>(duration);
+    break;
+  }
 }
 
+Timer::Timer() {}
 
-std::string return_current_time_and_date() {
-    auto now = std::chrono::system_clock::now();
-    auto in_time_t = std::chrono::system_clock::to_time_t(now);
+void Timer::start() {
+  mStartPoint = std::chrono::high_resolution_clock::now();
+  mIsRunning = true;
+}
 
-    struct tm time_info;
+void Timer::stop() {
+  if (mIsRunning) {
+    mElapsedTime += std::chrono::high_resolution_clock::now() - mStartPoint;
+    mIsRunning = false;
+  }
+}
+
+void Timer::reset() {
+  mElapsedTime = std::chrono::duration<double>::zero();
+  mIsRunning = false;
+}
+
+double Timer::timeElapsed(time_unit durationType) {
+  return durationCast(mElapsedTime, durationType).count();
+}
+
+std::chrono::duration<double> Timer::currentElapsed() {
+  return std::chrono::high_resolution_clock::now() - mStartPoint;
+}
+
+ScopedTimer::~ScopedTimer() {
+  mTimer.stop();
+  gLastDuration = durationCast(mTimer.mElapsedTime, mUnit);
+}
+
+void ScopedTimer::setUnit(time_unit unit) { mUnit = unit; };
+
+std::string getCurrentTimeDate() {
+  auto now = std::chrono::system_clock::now();
+  auto in_time_t = std::chrono::system_clock::to_time_t(now);
+
+  struct tm time_info;
 #if defined(__GNUG__)
 #define COMPILER_GCC
-    localtime_s(&time_info, &in_time_t); // huh
+  localtime_r(&in_time_t, &time_info);
 #elif defined(_MSC_VER)
-    localtime_s(&time_info, &in_time_t);
+  localtime_s(&time_info, &in_time_t);
 #endif
-    std::stringstream ss;
-    ss << std::put_time(&time_info, "%Y-%m-%d %X");
-    return ss.str();
+  std::stringstream ss;
+  ss << std::put_time(&time_info, "%Y-%m-%d %X");
+  return ss.str();
 }
+
+} // namespace benchtools

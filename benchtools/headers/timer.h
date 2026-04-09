@@ -1,69 +1,75 @@
-#ifndef BENCHMARK_TIMER
-#define BENCHMARK_TIMER
-
-#include <iostream>
+#include <atomic>
 #include <chrono>
-#include <ctime>
-#include <time.h>
-#include <sstream>
-#include <iomanip>
+#include <cstdint>
 
 namespace benchtools {
-    using duration = std::chrono::duration<double>;
 
-    /******************************************************************************
-     * @brief Enum for setting the time unit for benchtools::Timer
-     ******************************************************************************/
-    enum timeunit {
-        nanosecond = 0x3B9ACA00,
-        microsecond = 0x000003E8,
-        milisecond = 0x000F4240,
-        second = 0x00000000,
-        Default = 0x00000001,
-        minute = 0x0000003C,
-        hour = 0x00000E10,
-    };
+class Timer;
 
-    /******************************************************************************
-     * @brief Stores the duration from the last deconstructor called
-     * @warning DO NOT TRY TO EDIT THE VARIABLE
-     * @note This variable is not thread-safe exactly.
-     * @note Depending on the time of access another duration from an another .cpp file might be returned
-    ******************************************************************************/
-    extern std::chrono::steady_clock::duration LAST_DURATION;
+class ScopedTimer;
 
-    std::chrono::duration<double> durationCast(const std::chrono::duration<double>& otherDuration, timeunit unit);
+class LoggingTimer;
 
-    /******************************************************************************
-    * @brief Timer class
-    * @note define EXPLICIT_TIMER to explicit the destructor and manually call the destructor
-    * @note define EXPLICIT_LOG to prevent logging of duration to the ostream
-     ******************************************************************************/
-    class Timer {
-    private:
-        std::chrono::duration<double> mDuration;
-        std::chrono::steady_clock::time_point mStart;
-        timeunit mUnit = Default;
-    public:
-        Timer();
+enum class time_unit : uint8_t {
+  months,
+  years,
+  weeks,
+  days,
+  hours,
+  minutes,
+  seconds,
+  miliseconds,
+  microseconds,
+  nanoseconds
+};
 
-        Timer(const timeunit& unit);
-#if !EXPLICIT_TIMER
-        /******************************************************************************
-        * @brief Destructor of the timer class
-        * @note define EXPLICIT_TIMER to explicit the destructor and manually call the destructor
-         ******************************************************************************/
-        ~Timer();
-#else
-        /******************************************************************************
-        * @brief Explicit destructor of the timer class
-        * @note undefine EXPLICIT_TIMER to implicit the destructor
-         ******************************************************************************/
-        ~Timer();
-#endif
-        void SetUnit(const timeunit& unit);
-    };
-}
+static std::chrono::duration<double> gLastDuration{};
 
-std::string return_current_time_and_date();
-#endif
+std::chrono::duration<double>
+durationCast(std::chrono::duration<double> &duration, time_unit durationType);
+
+class Timer {
+  using clock = std::chrono::high_resolution_clock;
+  using time_point = clock::time_point;
+
+public:
+  Timer();
+
+  void start();
+
+  void stop();
+
+  void reset();
+
+  double timeElapsed(time_unit durationType);
+
+  friend ScopedTimer;
+
+private:
+  std::chrono::duration<double> currentElapsed();
+
+private:
+  time_point mStartPoint;
+  std::chrono::duration<double> mElapsedTime{
+      std::chrono::duration<double>::zero()};
+  std::atomic<bool> mIsRunning{0};
+};
+
+class ScopedTimer {
+  ScopedTimer() : mTimer(Timer()), mUnit(time_unit::seconds) {};
+
+  ScopedTimer(time_unit unit) : mTimer(Timer()), mUnit(unit) {};
+
+  ~ScopedTimer();
+
+  void setUnit(time_unit unit);
+
+private:
+  Timer mTimer;
+  time_unit mUnit;
+};
+
+class LoggingTimer {}; // TODO
+
+std::string getCurrentTimeDate();
+} // namespace benchtools
