@@ -1,33 +1,8 @@
-cmake_minimum_required(VERSION 3.16)
-project(benchmarktools LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.20)
+project(BenchtoolsProject VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-# gcc, clang
-if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-message("Compiler GNU")
-add_compile_options(-Wall -Wextra -Wpedantic -Werror)
-endif()
-
-# MSVC
-if (MSVC)
-message("Compiler MSVC")
-add_compile_options(/W4 /WX)
-endif()
-
-message("Compiler options setup...")
-
-file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/benchtools/src/*.cpp")
-file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/benchtools/headers/*.h")
-
-message("GLOB done.")
-
-add_executable(benchmarktools main.cpp ${SRC_FILES})
-# add_library(benchmarktools STATIC ${SRC_FILES})
-
-target_include_directories(benchmarktools PRIVATE "${CMAKE_SOURCE_DIR}/benchtools/headers")
-
-target_link_directories(benchmarktools PRIVATE)
-target_link_libraries(benchmarktools PRIVATE)
-
+add_subdirectory(Benchtools)

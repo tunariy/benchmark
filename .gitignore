@@ -1,14 +1,11 @@
 # Build files
 *.json
 build
-
-# clang
-.clangd
+/.cache/
+/.cache/
 
 # VSCode
 .vscode
 
-# Debugging Output
-log.txt
-main.cpp
-
+# clangd
+.clangd
