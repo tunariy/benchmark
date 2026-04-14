@@ -1,5 +1,6 @@
 #pragma once
-#include <Benchtools/Timer.hpp>
+#include "Benchtools/Time.hpp"
+#include <Benchtools/Timers/Timer.hpp>
 #include <atomic>
 
 namespace benchtools {
@@ -20,8 +21,8 @@ public:
   void stop() override;
 
   void reset();
-
-  std::chrono::duration<double> timeElapsed(time_unit durationType = time_unit::miliseconds);
+  
+  std::chrono::duration<double> timeElapsed(time_unit durationType = time_unit::seconds) override;
 
 public:
   friend class ScopedTimer;

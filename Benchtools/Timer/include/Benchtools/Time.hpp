@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 #include <cstdint>
+#include <fmt/format.h>
 
 namespace benchtools {
 
@@ -12,7 +13,7 @@ enum class time_unit : uint8_t {
   hours,
   minutes,
   seconds,
-  miliseconds,
+  milliseconds,
   microseconds,
   nanoseconds
 };
@@ -20,4 +21,6 @@ enum class time_unit : uint8_t {
 std::chrono::duration<double> durationCast(std::chrono::duration<double>& duration,
                                            time_unit durationType);
 std::string getCurrentTimeDate();
+
+std::string format(benchtools::time_unit unit);
 }  // namespace benchtools

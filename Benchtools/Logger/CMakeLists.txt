@@ -8,6 +8,6 @@ target_include_directories(Logger
         $<INSTALL_INTERFACE:include>
 )
 
-target_link_libraries(Logger PRIVATE spdlog::spdlog)
+target_link_libraries(Logger PUBLIC spdlog::spdlog fmt::fmt)
 
 target_compile_features(Logger PRIVATE cxx_std_20)

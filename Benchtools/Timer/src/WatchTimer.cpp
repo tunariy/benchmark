@@ -1,6 +1,5 @@
 #include <Benchtools/Time.hpp>
-#include <Benchtools/WatchTimer.hpp>
-#include <chrono>
+#include <Benchtools/Timers/WatchTimer.hpp>
 
 namespace benchtools {
 
@@ -25,11 +24,11 @@ void WatchTimer::reset() {
   mIsRunning = false;
 }
 
-std::chrono::duration<double> WatchTimer::timeElapsed(time_unit durationType) {
+[[nodiscard]] std::chrono::duration<double> WatchTimer::timeElapsed(time_unit durationType) {
   return durationCast(mElapsedTime, durationType);
 }
 
-std::chrono::duration<double> WatchTimer::currentElapsed() {
+[[nodiscard]] std::chrono::duration<double> WatchTimer::currentElapsed() {
   return std::chrono::high_resolution_clock::now() - mStartPoint;
 }
 

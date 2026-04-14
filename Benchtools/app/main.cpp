@@ -1,15 +1,27 @@
-#include <Benchtools/ScopedTimer.hpp>
-#include <Benchtools/Timer.hpp>
-#include <Benchtools/WatchTimer.hpp>
+#include <Benchtools/Logger/Logger.hpp>
+#include <Benchtools/Timers/CPUTimer.hpp>
+#include <Benchtools/Timers/ScopedTimer.hpp>
+#include <Benchtools/Timers/WatchTimer.hpp>
 #include <iostream>
 
 int main() {
-  benchtools::WatchTimer Timer;
-  Timer.start();
+  TRACE("BLM");
+  benchtools::WatchTimer t;
+  t.start();
   std::cin.get();
-  Timer.stop();
-  std::clog << Timer.timeElapsed() << std::endl;
-  benchtools::ScopedTimer t2;
+  t.stop();
+  benchtools::Timer* cputim = new benchtools::CpuTimer();
+
+  cputim->start();
+  INFO(t.timeElapsed().count());
+  /*
+  {
+    benchtools::ScopedTimer t2;
+    std::cin.get();
+    }
+    */
   std::cin.get();
-  std::clog << benchtools::gLastDuration;
+  cputim->stop();
+  INFO(cputim->timeElapsed().count());
+  delete cputim;
 }

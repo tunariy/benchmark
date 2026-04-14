@@ -1,8 +1,10 @@
 #include <Benchtools/Time.hpp>
+#include <fmt/format.h>
+
 namespace benchtools {
 
 std::chrono::duration<double> durationCast(std::chrono::duration<double>& duration,
-                                                  time_unit durationType) {
+                                           time_unit durationType) {
   switch (durationType) {
   case time_unit::months: {
     return std::chrono::duration_cast<std::chrono::months>(duration);
@@ -32,7 +34,7 @@ std::chrono::duration<double> durationCast(std::chrono::duration<double>& durati
     return std::chrono::duration_cast<std::chrono::seconds>(duration);
     break;
   }
-  case time_unit::miliseconds: {
+  case time_unit::milliseconds: {
     return std::chrono::duration_cast<std::chrono::milliseconds>(duration);
     break;
   }
@@ -64,5 +66,43 @@ std::string getCurrentTimeDate() {
   std::stringstream ss;
   ss << std::put_time(&time_info, "%Y-%m-%d %X");
   return ss.str();
+}
+
+std::string format(benchtools::time_unit unit) {
+  std::string suffix;
+  switch (unit) {
+    using enum benchtools::time_unit;
+  case seconds:
+    suffix = "s";
+    break;
+  case milliseconds:
+    suffix = "ms";
+    break;
+  case microseconds:
+    suffix = "us";
+    break;
+  case nanoseconds:
+    suffix = "ns";
+    break;
+  case minutes:
+    suffix = "min";
+    break;
+  case hours:
+    suffix = "h";
+    break;
+  case days:
+    suffix = "d";
+    break;
+  case weeks:
+    suffix = "w";
+    break;
+  case months:
+    suffix = "mo";
+    break;
+  case years:
+    suffix = "y";
+    break;
+  }
+  return suffix;
 }
 }  // namespace benchtools

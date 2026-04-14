@@ -1,17 +1,22 @@
-#include <Benchtools/ScopedTimer.hpp>
+#include "Benchtools/Logger/Logger.hpp"
+#include <Benchtools/Timers/ScopedTimer.hpp>
+#include <string>
 
 namespace benchtools {
 
 ScopedTimer::~ScopedTimer() {
   mTimer.stop();
-  benchtools::gLastDuration = mTimer.timeElapsed(mUnit);
+  std::string res = std::to_string(mTimer.mElapsedTime.count()) + benchtools::format(mUnit);
+  TRACE(res);
 }
 
 void ScopedTimer::start() {}
 
-void ScopedTimer::stop() {}
+void ScopedTimer::stop() {
+  mTimer.mElapsedTime = this->currentElapsed();
+}
 
-std::chrono::duration<double> ScopedTimer::currentElapsed() {
+[[nodiscard]] std::chrono::duration<double> ScopedTimer::currentElapsed() {
   return std::chrono::high_resolution_clock::now() - mTimer.mStartPoint;
 }
 

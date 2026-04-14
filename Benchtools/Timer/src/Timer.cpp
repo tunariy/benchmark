@@ -1,4 +1,4 @@
-#include <Benchtools/Timer.hpp>
+#include <Benchtools/Timers/Timer.hpp>
 
 namespace benchtools {
 
