@@ -1,4 +1,4 @@
-#include <Benchtools/Time.hpp>
+#include <Benchtools/Core/Time.hpp>
 #include <Benchtools/Timers/WatchTimer.hpp>
 
 namespace benchtools {
@@ -24,7 +24,8 @@ void WatchTimer::reset() {
   mIsRunning = false;
 }
 
-[[nodiscard]] std::chrono::duration<double> WatchTimer::timeElapsed(time_unit durationType) {
+[[nodiscard]] std::chrono::duration<double>
+WatchTimer::timeElapsed(time_unit durationType) {
   return durationCast(mElapsedTime, durationType);
 }
 

@@ -11,7 +11,7 @@ target_include_directories(Timer
 )
 
 target_link_libraries(Timer
-    PUBLIC Logger
+    PUBLIC Logger Core
 )
 
 target_compile_features(Timer PRIVATE cxx_std_20)

@@ -7,7 +7,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(FetchContent)
 
-# Fetch fmt first (spdlog needs it)
 FetchContent_Declare(
     fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
@@ -15,7 +14,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fmt)
 
-# Fetch spdlog as compiled library
 FetchContent_Declare(
     spdlog
     GIT_REPOSITORY https://github.com/gabime/spdlog.git
@@ -25,10 +23,17 @@ set(SPDLOG_FMT_EXTERNAL ON CACHE BOOL "" FORCE)   # Use external fmt
 set(SPDLOG_HEADER_ONLY OFF CACHE BOOL "" FORCE)   # Compiled mode
 FetchContent_MakeAvailable(spdlog)
 
+add_subdirectory(Core)
 add_subdirectory(Logger)
 add_subdirectory(Timer)
 
-# Optional: example app (if you have it)
-if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/app/CMakeLists.txt)
-    add_subdirectory(app)
+# add_subdirectory(File)
+
+# idk
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/App/CMakeLists.txt)
+    add_subdirectory(App)
+endif()
+
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/Test/CMakeLists.txt)
+    add_subdirectory(Test)
 endif()

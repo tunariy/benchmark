@@ -1,4 +1,4 @@
-#include <Benchtools/Time.hpp>
+#include <Benchtools/Core/Time.hpp>
 #include <fmt/format.h>
 
 namespace benchtools {

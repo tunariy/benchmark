@@ -1,13 +1,13 @@
 #pragma once
-#include "Benchtools/Time.hpp"
-#include <Benchtools/Timers/Timer.hpp>
+#include "Benchtools/Core/Time.hpp"
+#include <Benchtools/Timers/BaseTimer.hpp>
 #include <atomic>
 
 namespace benchtools {
 
-class ScopedTimer;
+class LoggingTimer;
 
-class WatchTimer : public Timer {
+class WatchTimer : public BaseTimer {
   using clock = std::chrono::high_resolution_clock;
   using time_point = clock::time_point;
 
@@ -21,11 +21,12 @@ public:
   void stop() override;
 
   void reset();
-  
-  std::chrono::duration<double> timeElapsed(time_unit durationType = time_unit::seconds) override;
+
+  std::chrono::duration<double>
+  timeElapsed(time_unit durationType = time_unit::seconds) override;
 
 public:
-  friend class ScopedTimer;
+  friend class LoggingTimer;
 
 private:
   virtual std::chrono::duration<double> currentElapsed() override;

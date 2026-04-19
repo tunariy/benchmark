@@ -1,16 +1,19 @@
+#include <Benchtools/Core/FileStream.hpp>
+
+#include <Benchtools/Timers/Timers.hpp>
+
 #include <Benchtools/Logger/Logger.hpp>
-#include <Benchtools/Timers/CPUTimer.hpp>
-#include <Benchtools/Timers/ScopedTimer.hpp>
-#include <Benchtools/Timers/WatchTimer.hpp>
+
 #include <iostream>
 
 int main() {
-  TRACE("BLM");
+#if 1
+  TRACE("");
   benchtools::WatchTimer t;
   t.start();
   std::cin.get();
   t.stop();
-  benchtools::Timer* cputim = new benchtools::CpuTimer();
+  benchtools::BaseTimer* cputim = new benchtools::CpuTimer();
 
   cputim->start();
   INFO(t.timeElapsed().count());
@@ -24,4 +27,5 @@ int main() {
   cputim->stop();
   INFO(cputim->timeElapsed().count());
   delete cputim;
+#endif
 }

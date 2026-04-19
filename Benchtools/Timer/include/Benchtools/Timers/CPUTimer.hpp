@@ -1,6 +1,6 @@
 #pragma once
-#include "Benchtools/Time.hpp"
-#include "Benchtools/Timers/Timer.hpp"
+#include <Benchtools/Core/Time.hpp>
+#include <Benchtools/Timers/BaseTimer.hpp>
 
 #include <atomic>
 #include <chrono>
@@ -8,13 +8,14 @@
 
 namespace benchtools {
 
-class CpuTimer : public Timer {
+class CpuTimer : public BaseTimer {
 public:
   void start() override;
 
   void stop() override;
 
-  [[nodiscard]] std::chrono::duration<double> timeElapsed(time_unit durationType = time_unit::seconds) override;
+  [[nodiscard]] std::chrono::duration<double>
+  timeElapsed(time_unit durationType = time_unit::seconds) override;
 
   [[nodiscard]] std::chrono::duration<double> currentElapsed() override;
 
