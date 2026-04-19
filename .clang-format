@@ -11,7 +11,7 @@ TabWidth: 2
 BreakBeforeBraces: Attach
 
 # Miscellaneous formatting
-ColumnLimit: 100
+ColumnLimit: 90
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: false
 AlignConsecutiveDeclarations: false

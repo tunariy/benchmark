@@ -9,3 +9,8 @@ build
 
 # clangd
 .clangd
+
+# Files generated during testing
+*.txt
+*.csv
+*.json
