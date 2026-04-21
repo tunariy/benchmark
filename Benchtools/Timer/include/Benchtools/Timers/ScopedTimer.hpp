@@ -2,12 +2,28 @@
 
 #include <Benchtools/Core/Time.hpp>
 #include <Benchtools/Timers/BaseTimer.hpp>
-#include <memory>
 
 namespace benchtools {
 
-class ScopedTimer {
+class ScopedTimer : BaseTimer {
+public:
+  ScopedTimer() = default;
 
-  std::unique_ptr<BaseTimer> mTimer;
+  ScopedTimer(BaseTimer& timer);
+
+  virtual ~ScopedTimer() override;
+
+  virtual void start() override;
+
+  virtual void stop() override;
+
+  [[nodiscard]] virtual Duration
+  duration(time_unit durationType = time_unit::seconds) override;
+
+private:
+  virtual std::chrono::duration<double> currentElapsed() override;
+
+private:
+  BaseTimer* mTimer;
 };
 };  // namespace benchtools

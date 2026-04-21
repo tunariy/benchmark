@@ -3,8 +3,6 @@
 
 namespace benchtools {
 
-WatchTimer::WatchTimer() {}
-
 WatchTimer::~WatchTimer() {}
 
 void WatchTimer::start() {
@@ -20,12 +18,11 @@ void WatchTimer::stop() {
 }
 
 void WatchTimer::reset() {
-  mElapsedTime = std::chrono::duration<double>::zero();
+  mElapsedTime = default_duration;
   mIsRunning = false;
 }
 
-[[nodiscard]] std::chrono::duration<double>
-WatchTimer::timeElapsed(time_unit durationType) {
+[[nodiscard]] Duration WatchTimer::duration(time_unit durationType) {
   return durationCast(mElapsedTime, durationType);
 }
 

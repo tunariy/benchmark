@@ -5,11 +5,8 @@
 namespace benchtools {
 
 LoggingTimer::~LoggingTimer() {
-  // TODO: should it log when it goes out of timer? fuck might have to wrap timers in this shit as well
-  // mTimer.stop();
-  // std::string res =
-  //   std::to_string(mTimer.mElapsedTime.count()) + benchtools::format(mUnit);
-  // TRACE(res);
+  mTimer.stop();
+  TRACE(std::to_string(mTimer.mElapsedTime.count()) + benchtools::format(mUnit));
 }
 
 void LoggingTimer::start() {}

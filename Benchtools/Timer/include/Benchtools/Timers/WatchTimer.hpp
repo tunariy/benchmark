@@ -12,18 +12,17 @@ class WatchTimer : public BaseTimer {
   using time_point = clock::time_point;
 
 public:
-  WatchTimer();
+  WatchTimer() = default;
 
   virtual ~WatchTimer() override;
 
-  void start() override;
+  virtual void start() override;
 
-  void stop() override;
+  virtual void stop() override;
 
   void reset();
 
-  std::chrono::duration<double>
-  timeElapsed(time_unit durationType = time_unit::seconds) override;
+  virtual Duration duration(time_unit durationType) override;
 
 public:
   friend class LoggingTimer;
@@ -33,7 +32,7 @@ private:
 
 private:
   time_point mStartPoint;
-  std::chrono::duration<double> mElapsedTime{std::chrono::duration<double>::zero()};
+  std::chrono::duration<double> mElapsedTime{default_duration};
   std::atomic<bool> mIsRunning{0};
 };
 
