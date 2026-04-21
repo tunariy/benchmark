@@ -13,10 +13,10 @@
 
 ## TODO
 
-- [ ] Port CPUTimer from clock() to std::chrono::process_clock
-- [ ] ScopedTimer should wrap a watchtimer just like how scoped_lock wraps a mutex
-- [ ] LoggingTimer should be able to wrap any timer
-- [ ] File logging??
+- [x] ScopedTimer should wrap a watchtimer just like how scoped_lock wraps a mutex
+- [ ] File logging timer? (.csv probably)
+
+~~- [ ] Port CPUTimer from clock() to std::chrono::process_clock~~ std::chrono::process_clock is not standard
 
 ---
 
