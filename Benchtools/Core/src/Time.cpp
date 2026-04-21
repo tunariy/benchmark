@@ -1,6 +1,5 @@
 #include <Benchtools/Core/Time.hpp>
 #include <chrono>
-#include <fmt/format.h>
 
 namespace benchtools {
 
