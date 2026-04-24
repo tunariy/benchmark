@@ -6,6 +6,7 @@
 namespace benchtools {
 
 ScopedTimer::ScopedTimer(BaseTimer& timer) : mTimer(&timer) {
+  mTimer->reset();
   mTimer->start();
 }
 

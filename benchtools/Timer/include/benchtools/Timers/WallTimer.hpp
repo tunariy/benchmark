@@ -1,7 +1,7 @@
 #pragma once
 #include "benchtools/Core/Time.hpp"
-#include <benchtools/Timers/BaseTimer.hpp>
 #include <atomic>
+#include <benchtools/Timers/BaseTimer.hpp>
 
 namespace benchtools {
 
@@ -20,7 +20,7 @@ public:
 
   virtual void stop() override;
 
-  void reset();
+  virtual void reset() override;
 
   virtual Duration duration(time_unit durationType) override;
 
