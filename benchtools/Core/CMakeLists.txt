@@ -3,6 +3,7 @@ file(GLOB FILE_SOURCES
 )
 
 add_library(Core STATIC ${FILE_SOURCES})
+add_library(Benchtools::Core ALIAS Core)
 
 target_include_directories(Core
     PUBLIC

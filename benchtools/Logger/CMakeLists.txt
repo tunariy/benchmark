@@ -1,6 +1,7 @@
 add_library(Logger STATIC
     src/Logger.cpp
 )
+add_library(Benchtools::Logger ALIAS Logger)
 
 target_include_directories(Logger
     PUBLIC

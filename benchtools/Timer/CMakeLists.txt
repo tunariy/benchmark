@@ -3,6 +3,7 @@ file(GLOB TIMER_SOURCES
 )
 
 add_library(Timer STATIC ${TIMER_SOURCES})
+add_library(Benchtools::Timer ALIAS Timer)
 
 target_include_directories(Timer
     PUBLIC
@@ -11,7 +12,7 @@ target_include_directories(Timer
 )
 
 target_link_libraries(Timer
-    PUBLIC Logger Core
+    PUBLIC Benchtools::Logger Benchtools::Core
 )
 
 target_compile_features(Timer PRIVATE cxx_std_20)
