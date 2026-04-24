@@ -17,8 +17,8 @@ void WallTimer::stop() {
   }
 }
 
-void WallTimer::reset() {
-  mElapsedTime = default_duration;
+void WallTimer::reset(bool reset) {
+  if (reset) mElapsedTime = default_duration;
   mIsRunning = false;
 }
 

@@ -14,7 +14,7 @@ public:
 
   virtual void stop() = 0;
 
-  virtual void reset();
+  virtual void reset(bool);
 
   [[nodiscard]] virtual Duration duration(time_unit durationType = time_unit::seconds) {
     return durationCast(default_duration, time_unit::seconds);

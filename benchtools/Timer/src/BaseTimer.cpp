@@ -4,6 +4,6 @@ namespace benchtools {
 
 BaseTimer::~BaseTimer() {}
 
-void BaseTimer::reset() {}
+void BaseTimer::reset(bool) {}
 
 }  // namespace benchtools

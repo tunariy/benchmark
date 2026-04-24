@@ -20,7 +20,7 @@ public:
 
   virtual void stop() override;
 
-  virtual void reset() override;
+  virtual void reset(bool reset = 0) override;
 
   virtual Duration duration(time_unit durationType) override;
 
