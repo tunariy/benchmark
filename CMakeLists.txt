@@ -10,7 +10,7 @@ add_subdirectory(benchtools)
 include(CMakePackageConfigHelpers)
 
 configure_package_config_file(
-    ${CMAKE_SOURCE_DIR}/benchtools/cmake/BenchtoolsConfig.cmake.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/benchtools/cmake/BenchtoolsConfig.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/BenchtoolsConfig.cmake
     INSTALL_DESTINATION lib/cmake/Benchtools
 )
