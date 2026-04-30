@@ -1,0 +1,70 @@
+#pragma once
+
+#include <benchtools/Core/Time.hpp>
+#include <benchtools/Timers/BaseTimer.hpp>
+
+#include <atomic>
+
+namespace benchtools {
+
+/**
+ * @brief Fundamental timer used for tracking wall time
+ *
+ */
+class WallTimer : public BaseTimer {
+    using clock = std::chrono::high_resolution_clock;
+    using time_point = clock::time_point;
+
+    friend class LoggingTimer;
+    friend class ScopedTimer;
+
+  public:
+    /**
+     * @brief Construct a new Wall Timer object
+     *
+     */
+    WallTimer() = default;
+
+    /**
+     * @brief Destroy the Wall Timer object
+     *
+     */
+    virtual ~WallTimer() override;
+
+    /**
+     * @brief
+     *
+     */
+
+    virtual void start() override;
+    /**
+     * @brief
+     *
+     */
+    virtual void stop() override;
+
+    /**
+     * @brief
+     *
+     * @param reset
+     */
+    virtual void reset(bool reset = 0) override;
+
+    /**
+     * @brief
+     *
+     * @param durationType
+     * @return Duration
+     */
+    [[nodiscard]] virtual Duration duration(time_unit durationType) noexcept override;
+
+  private:
+    [[nodiscard]] virtual std::chrono::duration<double> currentElapsed() noexcept override;
+
+  private:
+    time_point m_Start;
+    std::chrono::duration<double> m_ElapsedTime{default_duration};
+    std::atomic<bool> m_Running{0};
+};
+
+}  // namespace benchtools
