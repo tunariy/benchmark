@@ -1,5 +1,9 @@
 #include <benchtools/Core/Time.hpp>
+
 #include <chrono>
+#include <format>
+#include <ostream>
+#include <sstream>
 #include <string>
 
 namespace benchtools {
@@ -98,5 +102,21 @@ std::string format(Duration dur) {
             return "";
         },
         dur.duration());
+}
+
+[[nodiscard]] std::chrono::zoned_time<std::chrono::duration<double>>
+time_date() noexcept {
+    std::chrono::zoned_time zoned_time{std::chrono::current_zone(),
+                                       std::chrono::system_clock::now()};
+    zoned_time = {std::chrono::current_zone(),
+                  floor<std::chrono::seconds>(zoned_time.get_local_time())};
+    return zoned_time;
+};
+
+[[nodiscard]] std::string
+format(std::chrono::zoned_time<std::chrono::duration<double>> time_point) noexcept {
+    std::ostringstream oss;
+    oss << "[" << std::format("{:%F %T}", time_point) << "]" << "  " << std::flush;
+    return oss.str();
 }
 }  // namespace benchtools

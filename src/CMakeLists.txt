@@ -20,32 +20,32 @@ target_include_directories(Core
 target_compile_features(Core PUBLIC cxx_std_20)
 
 ######## LOGGER ######## 
-add_library(Logger
-    Logger/FileLogger.cpp
+add_library(Loggers
+    Loggers/FileLogger.cpp
 )
-target_include_directories(Logger
+target_include_directories(Loggers
     PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
 )
-target_compile_features(Logger PUBLIC cxx_std_20)
-target_link_libraries(Logger PUBLIC 
+target_compile_features(Loggers PUBLIC cxx_std_20)
+target_link_libraries(Loggers PUBLIC 
     Core
     spdlog::spdlog)
 
 ######## TIMER ######## 
-add_library(Timer
-    Timer/BaseTimer.cpp
-    Timer/ClockTimer.cpp
-    Timer/LoggerTimer.cpp
-    Timer/ScopedTimer.cpp
-    Timer/WallTimer.cpp
+add_library(Timers
+    Timers/BaseTimer.cpp
+    Timers/ClockTimer.cpp
+    Timers/LoggerTimer.cpp
+    Timers/ScopedTimer.cpp
+    Timers/WallTimer.cpp
 )
-target_include_directories(Timer
+target_include_directories(Timers
     PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
 )
-target_compile_features(Timer PUBLIC cxx_std_20)
-target_link_libraries(Timer PUBLIC Logger)
+target_compile_features(Timers PUBLIC cxx_std_20)
+target_link_libraries(Timers PUBLIC Loggers)
 
 
 ######## TESTING ######## 
@@ -55,6 +55,6 @@ if(TESTING)
     add_executable(benchtools_testing
         Test/Test.cpp
     )
-    target_link_libraries(benchtools_testing PRIVATE Timer)
+    target_link_libraries(benchtools_testing PRIVATE Timers)
     target_compile_features(benchtools_testing PRIVATE cxx_std_20)
 endif()

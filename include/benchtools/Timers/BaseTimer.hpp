@@ -6,6 +6,10 @@
 
 namespace benchtools {
 
+class WallTimer;
+
+using Timer = WallTimer;
+
 /**
  * @brief Base class for timers, used as a blueprint for what a timer should do
  */
@@ -36,7 +40,8 @@ class BaseTimer {
      * @param durationType
      * @return Duration
      */
-    [[nodiscard]] virtual Duration duration(time_unit durationType = time_unit::seconds) noexcept {
+    [[nodiscard]] virtual Duration
+    duration(time_unit durationType = time_unit::seconds) noexcept {
         return durationCast(default_duration, time_unit::seconds);
     };
 

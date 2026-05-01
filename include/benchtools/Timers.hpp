@@ -4,4 +4,6 @@
 #include <benchtools/Timers/ScopedTimer.hpp>
 #include <benchtools/Timers/WallTimer.hpp>
 
-namespace benchtools {};
+namespace benchtools {
+using Timer = WallTimer;
+};
