@@ -17,12 +17,12 @@ void ClockTimer::reset(bool) {
     mEnd = 0;
 }
 
-[[nodiscard]] Duration ClockTimer::duration(time_unit durationType) {
+[[nodiscard]] Duration ClockTimer::duration(time_unit durationType) noexcept {
     clock_t end = mRunning ? std::clock() : mEnd;
     return durationCast(this->currentElapsed(), durationType);
 }
 
-[[nodiscard]] std::chrono::duration<double> ClockTimer::currentElapsed() {
+[[nodiscard]] std::chrono::duration<double> ClockTimer::currentElapsed() noexcept {
     return std::chrono::duration<double>(static_cast<double>(std::clock() - mStart) /
                                          CLOCKS_PER_SEC);
 };
