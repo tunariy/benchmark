@@ -1,12 +1,10 @@
-#include "benchtools/Core/CSVStream.hpp"
-#include "benchtools/Core/LogType.hpp"
+#include "benchtools/Timers/WallTimer.hpp"
+#include <benchtools/Core/CSVStream.hpp>
 #include <benchtools/Loggers/FileLogger.hpp>
 #include <benchtools/Timers.hpp>
 
-#include <chrono>
-#include <initializer_list>
+#include <benchtools/Timers/FileTimer.hpp>
 #include <iostream>
-#include <thread>
 
 using namespace benchtools;
 using enum time_unit;
@@ -49,7 +47,17 @@ int main() {
         std::this_thread::sleep_for(std::chrono::seconds(1));
         a.Log("Something", LogType(x % 5));
     }
-#endif
+#elif 0
+    std::array<std::string_view, 3> a = {"1", "tuna", "example@gmail.com"};
     CSVStream<3> stream{"text.csv", "id", "name", "email"};
-    stream.write("1", "tuna", "example@gmail.com");
+    // stream.write("1", "tuna", "example@gmail.com");
+    stream.write(a);
+#endif
+    WallTimer timer;
+    FileTimer<WallTimer> tim{timer, "ig.txt"};
+    {
+        tim.start();
+        std::cin.get();
+        tim.stop();
+    }
 }

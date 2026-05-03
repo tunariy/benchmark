@@ -56,10 +56,12 @@ class WallTimer : public BaseTimer {
      * @param durationType
      * @return Duration
      */
-    [[nodiscard]] virtual Duration duration(time_unit durationType) noexcept override;
+    [[nodiscard]] virtual Duration
+    duration(time_unit durationType = time_unit::seconds) noexcept override;
 
   private:
-    [[nodiscard]] virtual std::chrono::duration<double> currentElapsed() noexcept override;
+    [[nodiscard]] virtual std::chrono::duration<double>
+    currentElapsed() noexcept override;
 
   private:
     time_point m_Start;

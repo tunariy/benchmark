@@ -1,5 +1,6 @@
 #pragma once
 
+#include <benchtools/Core/Concepts.hpp>
 #include <benchtools/Core/FileStream.hpp>
 
 #include <array>
@@ -9,16 +10,6 @@
 #include <string_view>
 
 namespace benchtools {
-
-/**
- * @brief TODO: DO SHIT
- *
- * @tparam T
- */
-template <typename T>
-concept ToStringConv =
-    std::convertible_to<T, std::string> || std::convertible_to<T, std::string_view>;
-
 
 template <size_t N> class CSVStream {
 
